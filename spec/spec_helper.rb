@@ -6,7 +6,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../src') unless $LOAD_PATH.include
 
 
 require 'puppet_worker'
-require 'mcollective/test'
+#require 'mcollective/test'
 
 RSpec.configure do |config|
 
