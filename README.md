@@ -1,4 +1,3 @@
-maestro-puppet-plugin
+Maestro Puppet Plugin
 =====================
 
-Maestro support for Puppet, Puppet Enterprise, and related tools

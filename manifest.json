@@ -1,0 +1,221 @@
+[
+  {
+    "name":"puppet runonce",
+    "description":"Run Puppet on a select number of agents",
+    "license":"Apache License 2.0",
+    "author":"MaestroDev",
+    "version":"1.0-SNAPSHOT",
+    "class":"MaestroDev::PuppetWorker",
+    "type":"ruby",
+    "dependencies":[
+      {
+        "name":"mcollective-client",
+        "version":"2.0.0",
+        "source":"http://rubygems.org/"
+      },
+      {
+        "name":"stomp",
+        "version":"1.2.2",
+        "source":"http://rubygems.org/"
+      }
+    ],
+    "task":{
+      "command":"/puppet/runonce",
+      "inputs":{
+        "agent":{
+          "required":true,
+          "type":"String",
+          "value":""
+        },
+        "verbose":{
+          "required":true,
+          "type":"Boolean",
+          "value":false
+        }
+      },
+      "outputs":{},
+      "tool_name":"Deployment"
+    }
+  },
+  {
+    "name":"puppet forge upload",
+    "description":"Upload a module build to the Puppet Forge",
+    "license":"Apache License 2.0",
+    "author":"MaestroDev",
+    "version":"1.0-SNAPSHOT",
+    "class":"MaestroDev::PuppetForgeWorker",
+    "type":"ruby",
+    "dependencies":[
+    ],
+    "task":{
+      "command":"/puppet/forgeUpload",
+      "inputs":{
+        "forgeUsername":{
+          "required":true,
+          "type":"String",
+          "value":""
+        },
+        "forgePassword":{
+          "required":true,
+          "type":"Password",
+          "value":""
+        },
+        "name":{
+          "required":true,
+          "type":"String",
+          "value":""
+        },
+        "url":{
+          "required":false,
+          "type":"String",
+          "value":""
+        },
+        "issueTrackerUrl":{
+          "required":false,
+          "type":"String",
+          "value":""
+        },
+        "feedUrl":{
+          "required":false,
+          "type":"String",
+          "value":""
+        },
+        "description":{
+          "required":true,
+          "type":"String",
+          "value":""
+        },
+        "tags":{
+          "required":true,
+          "type":"Array",
+          "value":[]
+        },
+        "createModule":{
+          "required":true,
+          "type":"Boolean",
+          "value":true
+        },
+        "releaseNotes":{
+          "required":false,
+          "type":"String",
+          "value":""
+        },
+        "file":{
+          "required":true,
+          "type":"String",
+          "value":""
+        }
+      },
+      "outputs":{},
+      "tool_name":"Deployment"
+    }
+  },
+  {
+    "name":"puppet forge promote",
+    "description":"Promote a module build to the Puppet Forge from a repository",
+    "license":"Apache License 2.0",
+    "author":"MaestroDev",
+    "version":"1.0-SNAPSHOT",
+    "class":"MaestroDev::PuppetForgeWorker",
+    "type":"ruby",
+    "dependencies":[
+    ],
+    "task":{
+      "command":"/puppet/forgeCopy",
+      "inputs":{
+        "forgeUsername":{
+          "required":true,
+          "type":"String",
+          "value":""
+        },
+        "forgePassword":{
+          "required":true,
+          "type":"Password",
+          "value":""
+        },
+        "name":{
+          "required":true,
+          "type":"String",
+          "value":""
+        },
+        "url":{
+          "required":false,
+          "type":"String",
+          "value":""
+        },
+        "issueTrackerUrl":{
+          "required":false,
+          "type":"String",
+          "value":""
+        },
+        "feedUrl":{
+          "required":false,
+          "type":"String",
+          "value":""
+        },
+        "description":{
+          "required":true,
+          "type":"String",
+          "value":""
+        },
+        "tags":{
+          "required":true,
+          "type":"Array",
+          "value":[]
+        },
+        "createModule":{
+          "required":true,
+          "type":"Boolean",
+          "value":true
+        },
+        "releaseNotes":{
+          "required":false,
+          "type":"String",
+          "value":""
+        },
+        "repositoryUrl" : {
+          "required" : true,
+          "type" : "Url",
+          "value" : ""
+        },
+        "repositoryUsername" : {
+          "required" : false,
+          "type" : "String",
+          "value" : ""
+        },
+        "repositoryPassword" : {
+          "required" : false,
+          "type" : "Password",
+          "value" : ""
+        },
+        "artifactGroupId" : {
+          "required" : true,
+          "type" : "String",
+          "value" : ""
+        },
+        "artifactId" : {
+          "required" : true,
+          "type" : "String",
+          "value" : ""
+        },
+        "artifactVersion" : {
+          "required" : true,
+          "type" : "String",
+          "value" : ""
+        },
+        "artifactType" : {
+          "required" : true,
+          "type" : "String",
+          "value" : "tar.gz"
+        },
+        "artifactClassifier" : {
+          "required" : false,
+          "type" : "String",
+          "value" : ""
+        }
+      },
+      "outputs":{},
+      "tool_name":"Deployment"
+    }
+  }
+]
