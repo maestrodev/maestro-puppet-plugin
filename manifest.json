@@ -34,7 +34,7 @@
         }
       },
       "outputs":{},
-      "tool_name":"Deployment"
+      "tool_name":"Deploy"
     }
   },
   {
@@ -107,7 +107,7 @@
         }
       },
       "outputs":{},
-      "tool_name":"Deployment"
+      "tool_name":"Deploy"
     }
   },
   {
@@ -215,7 +215,7 @@
         }
       },
       "outputs":{},
-      "tool_name":"Deployment"
+      "tool_name":"Deploy"
     }
   }
 ]
