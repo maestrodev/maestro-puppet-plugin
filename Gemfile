@@ -1,14 +1,14 @@
 source :rubygems
+source 'https://gems.gemfury.com/19mFQpkpgWC8xqPZVizB'
 
 gem 'bundler', '>= 1.0.21'
 gem 'rake'
 gem 'zippy'
 
-gem 'maestro_agent', '0.1.3.snapshot'
+gem 'maestro_agent', '1.0.0.snapshot'
 
 #dependencies
-gem "mcollective-client", "2.0.0"
-gem "stomp", "1.2.2"
+gem "pe-mcollective-client", "1.2.1"
 
 group :test do
   gem "mocha", "0.10.0"
