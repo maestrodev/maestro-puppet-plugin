@@ -6,6 +6,6 @@ Gem::Specification.new do |s|
   s.description = "Puppet Enterprise Marionette Collective client."
   s.authors     = ["Etienne Pelletier"]
   s.email       = 'epelletier@maestrodev.com'
-  s.files       = Dir["lib/mcollective.rb"] + Dir["lib/mcollective/**"]
-  s.add_runtime_dependency 'stomp', '~> 1.2', '>= 1.2.2'
+  s.files       = Dir["lib/mcollective.rb"] + Dir["lib/mcollective/**/*"]
+#  s.add_runtime_dependency 'stomp', '~> 1.2', '>= 1.2.2'
 end
