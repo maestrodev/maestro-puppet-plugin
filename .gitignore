@@ -4,4 +4,6 @@ target/
 .bundle
 vendor
 package
-maestro-puppet-plugin-*.zip
+maestro-*-plugin-*.zip
+tmp/
+manifest.json

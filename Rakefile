@@ -1,33 +1,29 @@
 require 'rake/clean'
 require 'rspec/core/rake_task'
 require 'zippy'
-require 'rexml/document'
+require 'git'
+require 'nokogiri'
+require 'json'
 
 $:.push File.expand_path("../src", __FILE__)
 
-pom_file = File.new( "pom.xml" )
-doc = REXML::Document.new pom_file
-root = doc.root
-artifactId = root.elements["artifactId"].text
-version = root.elements["version"].text
+CLEAN.include("manifest.json", "*-plugin-*.zip", "vendor", "package", "tmp", ".bundle")
 
-zip_file = "#{artifactId}-#{version}.zip"
-puts "ZIP file: #{zip_file}"
-
-CLEAN.include(zip_file,"vendor","package")
-
-task :default => [:bundle, :spec, :package]
+task :default => :all
+task :all => [:clean, :bundle, :spec, :package]
 
 desc "Run specs"
 RSpec::Core::RakeTask.new do |t|
   t.pattern = "./spec/**/*_spec.rb" # don't need this, it's default.
-  t.rspec_opts = "--fail-fast --format p --color"
+  t.rspec_opts = "--format p --color"
   # Put spec opts in a file named .rspec in root
 end
 
 desc "Get dependencies with Bundler"
 task :bundle do
-  system "bundle package"
+  sh %{bundle package} do |ok, res|
+    raise "Error bundling" if ! ok
+  end
 end
 
 def add_file( zippyfile, dst_dir, f )
@@ -46,11 +42,35 @@ end
 
 desc "Package plugin zip"
 task :package do
+  f = File.open("pom.xml")
+  doc = Nokogiri::XML(f.read)
+  f.close
+  artifactId = doc.css('artifactId').first.text
+  version = doc.css('version').first.text
+  zip_file = "#{artifactId}-#{version}.zip"
+
+  if File.exists?(".git")
+    git = Git.open(".")
+    # check if there are modified files
+    if git.status.select {|s| s.type == "M"}.empty?
+      commit = git.log.first.sha[0..5]
+      version = "#{version}-#{commit}"
+    else
+      puts "WARNING: There are modified files, not using commit hash in version"
+    end
+  end
+
+  # update manifest
+  manifest = JSON.parse(IO.read("manifest.template.json"))
+  manifest.each { |m| m['version'] = version }
+  File.open("manifest.json",'w'){ |f| f.write(JSON.pretty_generate(manifest)) }
+
   Zippy.create zip_file do |z|
+    add_dir z, '.', 'src'
     add_dir z, '.', 'vendor'
+    add_dir z, '.', 'images'
     add_file z, '.', 'manifest.json'
     add_file z, '.', 'README.md'
-    add_file z, '.', 'src/puppet_worker.rb'
-    add_file z, '.', 'src/puppet_forge_worker.rb'
+    add_file z, '.', 'LICENSE'
   end
 end
