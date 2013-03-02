@@ -18,4 +18,5 @@ group :test do
   gem 'rspec'
   gem 'rspec-core'
   gem 'mocha', :require => false
+  gem 'mcollective-test'
 end

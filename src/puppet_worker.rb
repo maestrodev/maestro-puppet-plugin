@@ -15,10 +15,8 @@ module MaestroDev
       Maestro.log.info "Running Puppet plugin"
       validate_fields
       return if error?
-      
-      write_output "Agent: #{get_field('agent')}\n"
-      write_output "Verbose: #{get_field('verbose')}\n"
 
+      # http://docs.puppetlabs.com/mcollective/simplerpc/clients.html
       puppet = rpcclient("puppetd")
       puppet.verbose = get_field('verbose')
       puppet.progress = false

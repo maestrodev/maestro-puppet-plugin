@@ -25,12 +25,14 @@
         "agent":{
           "required":true,
           "type":"String",
-          "value":""
+          "value":"",
+          "description": "The agent or agent expression with wildcards to run Puppet on"
         },
         "verbose":{
           "required":true,
           "type":"Boolean",
-          "value":false
+          "value":false,
+          "description": "Verbose output"
         }
       },
       "outputs":{},

@@ -4,7 +4,6 @@ module MaestroDev
   class PuppetWorker < Maestro::MaestroWorker
 
     def validate_fields
-      set_error('')
     end
 
     def forgeUpload
