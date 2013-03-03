@@ -22,11 +22,11 @@
     "task":{
       "command":"/puppet/runonce",
       "inputs":{
-        "agent":{
+        "identity_filter":{
           "required":true,
           "type":"String",
           "value":"",
-          "description": "The agent or agent expression with wildcards to run Puppet on"
+          "description": "Match hosts with a certain configured identity"
         },
         "verbose":{
           "required":true,

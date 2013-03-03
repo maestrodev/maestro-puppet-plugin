@@ -1,4 +1,5 @@
 source :rubygems
+source 'http://gems.gemfury.com/19mFQpkpgWC8xqPZVizB/'
 
 gem 'maestro_agent', '>=1.5.0'#, :path => "../MaestroAgent/"
 
@@ -16,7 +17,5 @@ end
 
 group :test do
   gem 'rspec'
-  gem 'rspec-core'
-  gem 'mocha', :require => false
   gem 'mcollective-test'
 end

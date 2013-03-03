@@ -3,20 +3,43 @@ require 'spec_helper'
 describe MaestroDev::PuppetWorker do
 
   before :each do
-    @test_participant = MaestroDev::PuppetWorker.new
+    @worker = MaestroDev::PuppetWorker.new
+    @worker.stub(:write_output)
   end
 
-  it "should echo a message" do
+  it 'should invoke runonce' do
+    identity_filter = 'pe-client.maestrodev.net'
+    verbose = true
     wi = Ruote::Workitem.new({'fields' => {
-                              'agent' => 'vm-agent-01.example.com',
+                              'identity_filter' => identity_filter,
+                              'verbose' => verbose
                               }})
+    @worker.stub(:workitem => wi.to_h)
+    rpcclient = double('rpcclient')
+    @worker.stub(:client => rpcclient)
+    rpcclient.should_receive(:verbose=).with(verbose)
+    rpcclient.should_receive(:progress=).with(false)
+    rpcclient.should_receive(:identity_filter).with(identity_filter)
 
-    # @test_participant.expects(:workitem => wi.to_h).at_least_once
+    stats = double("stats", :report => '')
 
-    # # TODO: try using mcollective-test to try it out
-    # @test_participant.runonce
+    rpcclient.stub(:stats => stats)
+    rpcclient.should_receive(:runonce).and_return([])
+    rpcclient.should_receive(:disconnect)
+    @worker.should_receive(:write_output).at_least(:twice)
 
-    # @test_participant.error.should be_nil
-    # @test_participant.workitem['__output__'].should match /Hello, World/
+    @worker.runonce
+
+    @worker.error.should be_nil
+
   end
+
+  it 'should send an error if required fields are missing' do
+    wi = Ruote::Workitem.new({'fields' => { } })
+    @worker.stub(:workitem => wi.to_h)
+    @worker.validate_fields
+    @worker.error.should == 'Missing Fields: verbose,identity_filter'
+  end
+
+
 end

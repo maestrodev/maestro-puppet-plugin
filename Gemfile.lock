@@ -1,5 +1,6 @@
 GEM
   remote: http://rubygems.org/
+  remote: http://gems.gemfury.com/19mFQpkpgWC8xqPZVizB/
   specs:
     andand (1.3.1)
     blankslate (2.1.2.4)
@@ -7,7 +8,6 @@ GEM
     builder (2.1.2)
     columnize (0.3.6)
     diff-lcs (1.1.3)
-    eventmachine (0.12.10)
     eventmachine (0.12.10-java)
     facter (1.6.3)
     file-tail (1.0.12)
@@ -18,7 +18,6 @@ GEM
       mime-types (~> 1.15)
     jruby-openssl (0.8.2)
       bouncy-castle-java (>= 1.5.0146.1)
-    json (1.7.7)
     json (1.7.7-java)
     little-plugger (1.1.3)
     logging (1.8.0)
@@ -52,13 +51,10 @@ GEM
     metaclass (0.0.1)
     mime-types (1.21)
     minitar (0.5.3)
-    mocha (0.12.0)
-      metaclass (~> 0.0.1)
     multi_json (1.3.6)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.2.1)
-    nokogiri (1.5.6)
     nokogiri (1.5.6-java)
     onstomp (1.0.5)
     parslet (1.2.1)
@@ -126,11 +122,9 @@ DEPENDENCIES
   git
   maestro_agent (>= 1.5.0)
   mcollective-test
-  mocha
   nokogiri
   pe-mcollective-client (= 1.2.1)
   rake
   rspec
-  rspec-core
   stomp
   zippy

@@ -3,9 +3,20 @@ Maestro Puppet Plugin
 
 Provides the following Maestro tasks
 
-# mcollective runonce
+# Puppet runonce
 
-On systems running Puppet Enterprise, the Puppet runonce task can be used within a composition to kick off puppet on a remote node.  Simply edit your composition, find the "puppet runonce" task in the task library and add it. Then, specify the hostname of the node on which you want to run puppetd in the Agent field. Note that "Agent" refers to the mcollective agent, not the maestro agent running the task/composition.  You must, however, make sure that the mcollective client configuration is present on the Maestro agent node (in `/etc/puppetlabs/mcollective/client.cfg`)
+On systems running Puppet Enterprise, the Puppet runonce task can be used within a composition to kick off puppet on a
+remote node through MCollective.  Simply edit your composition, find the "puppet runonce" task in the task library and add it.
+Then, specify the hostname of the node on which you want to run puppetd in the Identity Filter field.  You can either specify a hostname
+or use a regular expression to match host names. For example /maestrodev.net$/ to match all *.maestrodev.net.
+
+## Pre-requisites
+
+Puppet Enterprise must be installed on the maestro agent host running the Puppet plugin. It will look for the mcollective
+libraries typically installed in the /opt/puppet/libexec directory.
+
+The mcollective client configuration must also be present on the maestro agent host. The agent looks for the files
+/etc/puppetlabs/mcollective/client.cfg or ~/.mcollective to contain the configuration.
 
 More info at
 
