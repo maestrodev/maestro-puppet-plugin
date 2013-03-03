@@ -14,7 +14,7 @@ module MaestroDev
     def runonce
       Maestro.log.info 'Running Puppet plugin: runonce'
       validate_fields
-      return if error?
+      return unless error.nil?
 
       # http://docs.puppetlabs.com/mcollective/simplerpc/clients.html
       puppet = client
