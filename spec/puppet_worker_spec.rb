@@ -25,7 +25,7 @@ describe MaestroDev::PuppetWorker do
 
     rpcclient.stub(:stats => stats)
     rpcclient.should_receive(:runonce).and_return([])
-    rpcclient.should_receive(:disconnect)
+   # rpcclient.should_receive(:disconnect)
     @worker.should_receive(:write_output).at_least(:twice)
 
     @worker.runonce
