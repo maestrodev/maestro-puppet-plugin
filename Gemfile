@@ -1,5 +1,4 @@
 source :rubygems
-source 'http://gems.gemfury.com/19mFQpkpgWC8xqPZVizB/'
 
 gem 'maestro_agent', '>=1.5.0'#, :path => "../MaestroAgent/"
 
