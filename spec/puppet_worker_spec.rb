@@ -25,7 +25,9 @@ describe MaestroDev::PuppetWorker do
 
     rpcclient.stub(:stats => stats)
     rpcclient.should_receive(:runonce).and_return([])
-   # rpcclient.should_receive(:disconnect)
+    # Don't disconnect. We end up with a stale/disconnected connection and can't send messages to the stomp
+    # server anymore.
+    rpcclient.should_not_receive(:disconnect)
     @worker.should_receive(:write_output).at_least(:twice)
 
     @worker.runonce
