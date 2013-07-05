@@ -1,6 +1,6 @@
-source :rubygems
+source "https://rubygems.org"
 
-gem 'maestro_agent', '>=1.5.0'#, :path => "../MaestroAgent/"
+gem 'maestro_agent', '>=1.7.0'#, :path => "../MaestroAgent/"
 
 #dependencies
 gem "pe-mcollective-client", "1.2.1"
