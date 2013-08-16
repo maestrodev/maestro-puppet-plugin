@@ -1,17 +1,14 @@
 source "https://rubygems.org"
 
-gem 'maestro_agent', '>=1.7.0'#, :path => "../MaestroAgent/"
+gem 'maestro_plugin', '>0.0.5'
 
 #dependencies
 gem "pe-mcollective-client", "1.2.1"
 gem "stomp"
+gem 'puppet-blacksmith', '>=2.0.0'
 
 group :development do
-  gem 'zippy'
-  gem 'bundler', '>=1.0.21'
-  gem 'rake'
-  gem 'nokogiri'
-  gem 'git'
+  gem 'maestro-plugin-rake-tasks'
 end
 
 group :test do

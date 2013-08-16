@@ -1,0 +1,5 @@
+These facts have been copied from facter 1.7.2 and are required just to load puppet
+or it will fail with undefined method value for nil
+
+Puppet expects the facts to be defined on load, and the way the agent loads classes
+we need to add them here

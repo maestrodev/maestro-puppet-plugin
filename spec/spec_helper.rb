@@ -15,14 +15,13 @@
 require 'rubygems'
 require 'rspec'
 require 'rspec/mocks'
+require 'maestro_plugin'
 
-$LOAD_PATH.unshift(File.dirname(__FILE__) + '/../src') unless $LOAD_PATH.include?(File.dirname(__FILE__) + '/../src')
-
-RSpec::Mocks::setup(self)
-
-require 'src/puppet_worker'
+src = File.dirname(__FILE__) + '/../src'
+$LOAD_PATH.unshift(src) unless $LOAD_PATH.include?(src)
 
 RSpec.configure do |config|
-
-
+  config.before(:each) do
+    Maestro::MaestroWorker.mock!
+  end  
 end
