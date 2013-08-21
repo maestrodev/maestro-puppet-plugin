@@ -33,7 +33,7 @@ GEM
       facter (~> 1.6)
       hiera (~> 1.0)
       rgen (~> 0.6.5)
-    puppet-blacksmith (2.0.0)
+    puppet-blacksmith (2.0.1)
       nokogiri
       puppet (>= 2.7.16)
       rest-client
@@ -62,6 +62,6 @@ DEPENDENCIES
   maestro_plugin (> 0.0.5)
   mcollective-test
   pe-mcollective-client (= 1.2.1)
-  puppet-blacksmith (>= 2.0.0)
+  puppet-blacksmith (>= 2.0.1)
   rspec
   stomp
