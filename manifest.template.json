@@ -1,4 +1,6 @@
-[
+{
+  "image": "puppet.png",
+  "tasks": [
   {
     "name":"puppet runonce",
     "description":"Run Puppet on a select number of agents",
@@ -114,5 +116,5 @@
         }
       }
     ]
-  }
-]
+  }]
+}
