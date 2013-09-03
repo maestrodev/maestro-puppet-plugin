@@ -6,7 +6,9 @@ describe MaestroDev::Plugin::PuppetWorker do
   let(:workitem) { {'fields' => fields} }
   let(:fields) { {} }
 
-  before { subject.workitem = workitem }
+  before(:each) do
+    Maestro::MaestroWorker.mock!
+  end
 
   context 'when invoking runonce' do
     let(:identity_filter) { 'pe-client.maestrodev.net' }
@@ -15,6 +17,12 @@ describe MaestroDev::Plugin::PuppetWorker do
       'identity_filter' => identity_filter,
       'verbose' => verbose
     } }
+
+    it 'should detect missing params' do
+      workitem = {'fields' => {}}
+      subject.perform(:runonce, workitem)
+      workitem['fields']['__error__'].should include('missing field identity_filter')
+    end
 
     it "should succeed" do
       rpcclient = double('rpcclient')
@@ -30,18 +38,10 @@ describe MaestroDev::Plugin::PuppetWorker do
       # Don't disconnect. We end up with a stale/disconnected connection and can't send messages to the stomp
       # server anymore.
       rpcclient.should_not_receive(:disconnect)
-      subject.should_receive(:write_output).at_least(:twice)
 
-      subject.runonce
+      subject.perform(:runonce, workitem)
 
       subject.error.should be_nil
-    end
-  end
-
-  context "when validating fields" do
-    before { subject.validate_fields }
-    it 'should send an error if required fields are missing' do
-      subject.error.should == 'Missing Fields: verbose,identity_filter'
     end
   end
 

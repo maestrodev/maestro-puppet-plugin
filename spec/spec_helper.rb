@@ -15,7 +15,6 @@
 require 'rubygems'
 require 'rspec'
 require 'rspec/mocks'
-require 'maestro_plugin'
 
 src = File.dirname(__FILE__) + '/../src'
 $LOAD_PATH.unshift(src) unless $LOAD_PATH.include?(src)

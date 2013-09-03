@@ -7,6 +7,10 @@ module MaestroDev
   module Plugin
     class PuppetWorker < Maestro::MaestroWorker
 
+      def client
+        rpcclient('puppetd')
+      end
+
       def runonce
         validate_parameters
 
@@ -41,10 +45,6 @@ module MaestroDev
 
         errors << 'missing field identity_filter' if @identity_filter.empty?
         raise ConfigError, "Config Errors: #{errors.join(', ')}" unless errors.empty?
-      end
-
-      def client
-        rpcclient('puppetd')
       end
     end
   end
