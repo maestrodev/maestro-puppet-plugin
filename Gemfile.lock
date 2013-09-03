@@ -59,7 +59,7 @@ PLATFORMS
 
 DEPENDENCIES
   maestro-plugin-rake-tasks
-  maestro_plugin (> 0.0.17)
+  maestro_plugin (>= 0.0.17)
   mcollective-test
   pe-mcollective-client (= 1.2.1)
   puppet-blacksmith (>= 2.0.1)
