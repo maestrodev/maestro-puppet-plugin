@@ -18,7 +18,7 @@ GEM
       nokogiri
       rake (>= 0.9.2)
       zippy
-    maestro_plugin (0.0.16)
+    maestro_plugin (0.0.17)
       json (>= 1.4.6)
       logging (= 1.8.0)
       rubyzip (= 0.9.8)
@@ -59,7 +59,7 @@ PLATFORMS
 
 DEPENDENCIES
   maestro-plugin-rake-tasks
-  maestro_plugin (> 0.0.5)
+  maestro_plugin (> 0.0.17)
   mcollective-test
   pe-mcollective-client (= 1.2.1)
   puppet-blacksmith (>= 2.0.1)
