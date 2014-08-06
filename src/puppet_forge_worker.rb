@@ -21,7 +21,7 @@ module MaestroDev
         validate_fields
         username = get_field('forge_username')
         self.forge = Blacksmith::Forge.new(username, get_field('forge_password'), get_field('forge_url'))
-        log_output("Uploading file to the Puppet Forge as #{forge.username} at #{forge.url}")
+        log_output("Uploading file to the Puppet Forge as '#{forge.username}'' at '#{forge.url}'")
 
         path = get_field('path') || get_field('scm_path')
         raise ConfigError, "Missing module path" unless path
@@ -37,7 +37,9 @@ module MaestroDev
           return
         end
 
+        log_output("Tagging version #{modulefile.version}")
         git.tag!(modulefile.version)
+        log_output("Tagged version #{modulefile.version}")
 
         # pushing the package set or find the build under pkg/
         pkg_path = File.expand_path(File.join(path,"pkg"))
