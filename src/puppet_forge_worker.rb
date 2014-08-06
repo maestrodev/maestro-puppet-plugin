@@ -27,8 +27,9 @@ module MaestroDev
         raise ConfigError, "Missing module path" unless path
 
         git = Blacksmith::Git.new(path)
-        self.modulefile = Blacksmith::Modulefile.new("#{git.path}/Modulefile")
-        raise PluginError, "Modulefile not found at #{modulefile.path}" unless File.exists? modulefile.path
+        modulefile_path = Blacksmith::Modulefile::FILES.find {|f| File.exists?("#{git.path}/#{f}")}
+        raise PluginError, "metadata.json or Modulefile not found at #{git.path}/#{modulefile_path}" unless modulefile_path
+        self.modulefile = Blacksmith::Modulefile.new(File.join(git.path, modulefile_path))
 
         if last_commit_was_automated?(git.path)
           log_output("Module was already released")
