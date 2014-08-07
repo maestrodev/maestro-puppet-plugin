@@ -78,7 +78,7 @@ module MaestroDev
 
       def log_output(msg)
         Maestro.log.info(msg)
-        write_output("#{msg}\n")
+        write_output("#{msg}\n", {:buffer => false})
       end
     end
   end
