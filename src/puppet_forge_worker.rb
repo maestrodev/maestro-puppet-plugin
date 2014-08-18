@@ -1,6 +1,24 @@
 require 'maestro_plugin'
 require 'puppet_blacksmith'
 
+# overwrite git execution to use our utils
+module Blacksmith
+  class Git
+
+    def exec_git(cmd)
+      new_cmd = "LANG=C #{git_cmd_with_path(cmd)}"
+      Maestro.log.debug("Running git: #{new_cmd}")
+
+      exit_status, out = Maestro::Util::Shell.run_command(new_cmd)
+
+      if !exit_status.success?
+        raise Blacksmith::Error, "Command #{new_cmd} failed with exit status #{exit_status.exit_code}\n#{out}"
+      end
+      return out
+    end
+  end
+end
+
 module MaestroDev
   module Plugin
 
@@ -26,10 +44,14 @@ module MaestroDev
         path = get_field('path') || get_field('scm_path')
         raise ConfigError, "Missing module path" unless path
 
+        Maestro.log.debug("Looking for metadata files")
+
         git = Blacksmith::Git.new(path)
         modulefile_path = Blacksmith::Modulefile::FILES.find {|f| File.exists?("#{git.path}/#{f}")}
         raise PluginError, "metadata.json or Modulefile not found at #{git.path}/#{modulefile_path}" unless modulefile_path
         self.modulefile = Blacksmith::Modulefile.new(File.join(git.path, modulefile_path))
+
+        Maestro.log.debug("Checking if last commit was automated")
 
         if last_commit_was_automated?(git.path)
           log_output("Module was already released")
@@ -37,7 +59,7 @@ module MaestroDev
           return
         end
 
-        log_output("Tagging version #{modulefile.version}")
+        Maestro.log.debug("Tagging version #{modulefile.version}")
         git.tag!(modulefile.version)
         log_output("Tagged version #{modulefile.version}")
 
@@ -72,8 +94,12 @@ module MaestroDev
       def last_commit_was_automated?(path)
         # get last commit
         # --pretty=%B would be better but not available in git 1.7
-        msg = `cd #{path} && git log -1 --pretty=oneline`
-        msg.empty? or msg.include?(PUSH_MSG)
+        cmd = "cd #{path} && LANG=C git log -1 --pretty=oneline"
+        Maestro.log.debug("Running git: #{cmd}")
+        result = Maestro::Util::Shell.run_command(cmd)
+        Maestro.log.debug("Git output: [#{result[0].exit_code}] #{result[1]}")
+        output = result[1]
+        output.empty? or output.include?(PUSH_MSG)
       end
 
       def log_output(msg)
