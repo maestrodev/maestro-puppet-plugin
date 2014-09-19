@@ -27,7 +27,7 @@ describe MaestroDev::Plugin::PuppetForgeWorker do
     end
     it { subject.forge.username.should eq('maestrodev') }
     it { subject.forge.password.should eq('mypassword') }
-    it { subject.forge.url.should eq('https://forge.puppetlabs.com') }
+    it { subject.forge.url.should eq('https://forgeapi.puppetlabs.com') }
   end
 
   context "when fields are missing" do
